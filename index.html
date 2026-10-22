@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Are We Eating</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🍲 What are we eating?</h1>
+    <div id="who" hidden><span id="who-name"></span> <button id="logout" class="link">Log out</button></div>
+  </header>
+
+  <main id="app">
+    <p class="muted">Loading…</p>
+  </main>
+
+  <template id="tpl-setup">
+    <section class="card">
+      <h2>Almost there</h2>
+      <p>The app isn't connected to a database yet. Fill in <code>config.js</code> with your Supabase project URL and anon key — see the README.</p>
+    </section>
+  </template>
+
+  <template id="tpl-auth">
+    <section class="card narrow">
+      <div class="tabs">
+        <button data-mode="login" class="active">Log in</button>
+        <button data-mode="signup">Sign up</button>
+      </div>
+      <form id="auth-form">
+        <label>Username <input name="username" autocomplete="username" required pattern="[a-zA-Z0-9_.\-]{3,30}" title="3–30 letters, numbers, . _ -"></label>
+        <label>Password <input name="password" type="password" autocomplete="current-password" required minlength="6"></label>
+        <button type="submit" class="primary">Log in</button>
+        <p class="error" hidden></p>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-household">
+    <section class="card narrow">
+      <h2>Set up your kitchen</h2>
+      <form id="create-form">
+        <p>First one here? Create a household.</p>
+        <label>Household name <input name="name" placeholder="Our kitchen"></label>
+        <button class="primary">Create</button>
+      </form>
+      <hr>
+      <form id="join-form">
+        <p>Partner already set it up? Enter their join code.</p>
+        <label>Join code <input name="code" required placeholder="A1B2C3D4"></label>
+        <button>Join</button>
+      </form>
+      <p class="error" hidden></p>
+    </section>
+  </template>
+
+  <template id="tpl-main">
+    <nav class="tabs main-tabs">
+      <button data-view="meal" class="active">🗳️ Next meal</button>
+      <button data-view="groceries">🧺 Groceries</button>
+      <button data-view="home">🏠 Household</button>
+    </nav>
+
+    <section data-view="meal" class="card">
+      <div id="winner"></div>
+      <form id="option-form" class="row">
+        <input name="name" placeholder="Suggest a meal… (e.g. paneer tikka)" required>
+        <button class="primary">Add</button>
+      </form>
+      <ul id="options" class="list"></ul>
+      <div class="row end">
+        <button id="new-round" class="link">Clear and start a new round</button>
+      </div>
+      <details>
+        <summary>Recently eaten</summary>
+        <ul id="history" class="list compact"></ul>
+      </details>
+    </section>
+
+    <section data-view="groceries" class="card" hidden>
+      <form id="grocery-form" class="row">
+        <input name="name" placeholder="What do we have? (e.g. spinach)" required>
+        <input name="qty" placeholder="Qty" class="qty">
+        <button class="primary">Add</button>
+      </form>
+      <ul id="groceries" class="list"></ul>
+      <p class="muted small">Tap ✕ when something's used up.</p>
+    </section>
+
+    <section data-view="home" class="card" hidden>
+      <h2 id="hh-name"></h2>
+      <p>Join code for your partner: <code id="hh-code"></code></p>
+      <h3>Members</h3>
+      <ul id="members" class="list compact"></ul>
+    </section>
+  </template>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
