@@ -2,8 +2,11 @@
 
 A tiny web app for two people sharing a kitchen:
 
-- **Groceries**: log what you have this week, and tap ✕ when something's used up.
-- **Next meal**: suggest meals, both vote 👍/👎, then pick the winner. Votes show up live on both phones.
+- **🗳️ Vote**: suggest meals (🏠 home or 🍽️ out), both vote 👍/👎, then pick the winner. Votes show up live on both phones.
+  "It's been a while" lists regulars you haven't had in 2+ weeks, one tap to add them to the vote.
+- **📅 Calendar**: a month view of what you ate. Picking a vote winner logs it automatically, or add meals to any day by hand.
+- **⭐ Regulars**: two lists, things you make at home and things you eat out (with the place), each showing when you last had it.
+- **🧺 Groceries**: log what you have this week, and tap ✕ when something's used up.
 
 Username and password login. It's a static site on GitHub Pages, at https://whatareweeatingnext.github.io, with data stored in [Supabase](https://supabase.com) (free tier).
 
@@ -18,6 +21,7 @@ that belong to their own household. The Supabase *publishable key* in `config.js
 
 1. Create a free project at [supabase.com](https://supabase.com).
 2. **SQL Editor → New query**, paste all of `supabase/schema.sql`, then click **Run**.
+   (Databases created before the calendar existed only need `supabase/migrations/002_calendar_regulars.sql`.)
 3. **Authentication → Sign In / Providers → Email**: turn **off** “Confirm email”. Usernames are mapped
    to pseudo-emails, so no mail can be delivered.
 4. **Project Settings → API**: copy the **Project URL** (Settings → Data API) and the **publishable** key (Settings → API Keys) into `config.js`, then commit and push.

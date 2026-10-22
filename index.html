@@ -64,27 +64,92 @@
   </template>
 
   <template id="tpl-main">
-    <nav class="tabs main-tabs">
-      <button data-view="meal" class="active">🗳️ Next meal</button>
-      <button data-view="groceries">🧺 Groceries</button>
-      <button data-view="home">🏠 Home</button>
+    <nav class="bottom-nav">
+      <button data-view="meal" class="active"><span>🗳️</span>Vote</button>
+      <button data-view="calendar"><span>📅</span>Calendar</button>
+      <button data-view="regulars"><span>⭐</span>Regulars</button>
+      <button data-view="groceries"><span>🧺</span>Groceries</button>
+      <button data-view="home"><span>🏠</span>Home</button>
     </nav>
 
-    <section data-view="meal" class="card">
-      <div id="winner"></div>
-      <form id="option-form" class="row">
-        <input name="name" placeholder="Suggest a meal…" required autocomplete="off" enterkeyhint="done">
-        <button class="primary">Add</button>
-      </form>
-      <ul id="options" class="list"></ul>
-      <div class="row end">
-        <button id="new-round" class="link">Clear and start a new round</button>
+    <datalist id="dish-names"></datalist>
+
+    <div data-view="meal">
+      <section class="card">
+        <div id="winner"></div>
+        <form id="option-form" class="row">
+          <input name="name" placeholder="Suggest a meal…" required autocomplete="off" enterkeyhint="done" list="dish-names">
+          <select name="kind" class="kind" aria-label="Home or out">
+            <option value="home">🏠</option>
+            <option value="out">🍽️</option>
+          </select>
+          <button class="primary">Add</button>
+        </form>
+        <ul id="options" class="list"></ul>
+        <div class="row end">
+          <button id="new-round" class="link">Clear and start a new round</button>
+        </div>
+      </section>
+      <section class="card" id="stale-card">
+        <h2>💭 It's been a while</h2>
+        <p class="muted small">Regulars you haven't had in 2+ weeks.</p>
+        <ul id="stale" class="list"></ul>
+      </section>
+    </div>
+
+    <section data-view="calendar" class="card" hidden>
+      <div class="cal-head">
+        <button data-act="cal-prev" aria-label="Previous month">‹</button>
+        <h2 id="cal-title"></h2>
+        <button data-act="cal-next" aria-label="Next month">›</button>
       </div>
-      <details>
-        <summary>Recently eaten</summary>
-        <ul id="history" class="list compact"></ul>
-      </details>
+      <div id="cal-grid" class="cal-grid"></div>
+      <p class="muted small cal-legend">🏠 made at home · 🍽️ ate out</p>
+      <h3 id="day-title"></h3>
+      <ul id="day-meals" class="list"></ul>
+      <form id="eaten-form">
+        <div class="row">
+          <input name="name" placeholder="What did we eat?" required autocomplete="off" list="dish-names">
+          <select name="kind" class="kind" aria-label="Home or out">
+            <option value="home">🏠</option>
+            <option value="out">🍽️</option>
+          </select>
+        </div>
+        <div class="row">
+          <select name="slot" aria-label="Meal">
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+          </select>
+          <input name="place" placeholder="Where? (optional)" autocomplete="off" hidden>
+          <button class="primary">Log it</button>
+        </div>
+      </form>
     </section>
+
+    <div data-view="regulars" hidden>
+      <section class="card">
+        <h2>🏠 We make at home</h2>
+        <form class="row dish-form" data-kind="home">
+          <input name="name" placeholder="e.g. Rajma chawal" required autocomplete="off" enterkeyhint="done">
+          <button class="primary">Add</button>
+        </form>
+        <ul id="dishes-home" class="list"></ul>
+      </section>
+      <section class="card">
+        <h2>🍽️ We eat out</h2>
+        <form class="dish-form" data-kind="out">
+          <div class="row">
+            <input name="name" placeholder="e.g. Burrito bowl" required autocomplete="off">
+            <input name="place" placeholder="Where?" autocomplete="off" class="place">
+            <button class="primary">Add</button>
+          </div>
+        </form>
+        <ul id="dishes-out" class="list"></ul>
+      </section>
+      <p class="muted small center">🗳️ adds it to the vote · ✓ logs it as eaten today</p>
+    </div>
 
     <section data-view="groceries" class="card" hidden>
       <form id="grocery-form" class="row">
