@@ -1,11 +1,11 @@
-# What Are We Eating 🍲
+# What Are We Eating Next 🍲
 
 A tiny web app for two people sharing a kitchen:
 
 - **Groceries**: log what you have this week, and tap ✕ when something's used up.
 - **Next meal**: suggest meals, both vote 👍/👎, then pick the winner. Votes show up live on both phones.
 
-Username and password login. It's a static site on GitHub Pages, with data stored in [Supabase](https://supabase.com) (free tier).
+Username and password login. It's a static site on GitHub Pages, at https://whatareweeatingnext.github.io, with data stored in [Supabase](https://supabase.com) (free tier).
 
 ## Privacy
 

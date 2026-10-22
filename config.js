@@ -6,4 +6,4 @@ export const SUPABASE_ANON_KEY = "";
 
 // Usernames are turned into this pseudo-email for Supabase Auth.
 // No mail is ever sent (email confirmation is turned off).
-export const USERNAME_EMAIL_DOMAIN = "users.what-are-we-eating.app";
+export const USERNAME_EMAIL_DOMAIN = "users.whatareweeatingnext.app";
