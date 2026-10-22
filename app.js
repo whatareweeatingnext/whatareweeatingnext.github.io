@@ -1,5 +1,5 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm";
-import { SUPABASE_URL, SUPABASE_ANON_KEY, USERNAME_EMAIL_DOMAIN } from "./config.js";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/+esm";
+import { SUPABASE_URL, SUPABASE_KEY, USERNAME_EMAIL_DOMAIN } from "./config.js";
 
 const app = document.getElementById("app");
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -7,12 +7,12 @@ const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "
 const mount = (id) => { app.replaceChildren($(`#${id}`).content.cloneNode(true)); };
 const showError = (el, err) => { el.textContent = err?.message ?? String(err); el.hidden = false; };
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+if (!SUPABASE_URL || !SUPABASE_KEY) {
   mount("tpl-setup");
   throw new Error("config.js is not filled in");
 }
 
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 const toEmail = (u) => `${u.trim().toLowerCase()}@${USERNAME_EMAIL_DOMAIN}`;
 
 let state = { user: null, member: null, household: null, members: [], options: [], votes: [], history: [], groceries: [] };

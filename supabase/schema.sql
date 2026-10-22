@@ -121,6 +121,14 @@ create policy "own votes" on public.votes
   for all using (user_id = auth.uid())
   with check (user_id = auth.uid() and household_id = public.my_household());
 
+-- Grants (RLS above still decides which rows are visible) -----------------
+
+revoke all on public.households, public.members, public.groceries, public.meal_options, public.votes from anon;
+grant select on public.households, public.members to authenticated;
+grant select, insert, update, delete on public.groceries, public.meal_options, public.votes to authenticated;
+revoke execute on function public.create_household(text, text), public.join_household(text, text), public.my_household() from public, anon;
+grant execute on function public.create_household(text, text), public.join_household(text, text), public.my_household() to authenticated;
+
 -- Live updates so you see each other's votes instantly ----------------------
 
 do $$
