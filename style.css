@@ -24,6 +24,7 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
 body {
   margin: 0;
   overflow-x: hidden;
@@ -74,7 +75,9 @@ button:disabled { opacity: .5; cursor: default; }
   position: sticky; top: 0; z-index: 1; background: var(--bg);
   padding: 8px 0; margin: 0;
 }
-.tabs button { white-space: nowrap; padding-inline: 8px; }
+.tabs button { white-space: nowrap; padding-inline: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+#auth-form .primary, #create-form .primary, #join-form button { width: 100%; }
+#who { display: flex; align-items: center; gap: 6px; font-size: .9rem; white-space: nowrap; }
 .tabs button.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
 .list { list-style: none; margin: 12px 0; padding: 0; }
@@ -110,7 +113,9 @@ summary { cursor: pointer; }
 
 @media (max-width: 420px) {
   header { padding-top: 14px; }
-  header h1 { font-size: 1.15rem; }
+  header h1 { font-size: 1.1rem; }
+  #who { flex-direction: column; align-items: flex-end; gap: 0; font-size: .85rem; }
+  .tabs button { font-size: .9rem; padding-inline: 4px; }
   main { padding-inline: 12px; }
   .card { padding: 12px; border-radius: 12px; }
   .row .qty { flex-basis: 64px; }
