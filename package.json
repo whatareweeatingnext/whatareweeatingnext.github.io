@@ -1,0 +1,14 @@
+{
+  "name": "whatareweeatingnext",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:ui",
+    "test:unit": "node --test \"tests/unit/**/*.test.js\"",
+    "test:ui": "node --test --test-concurrency=1 \"tests/ui/**/*.test.js\"",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "playwright-core": "1.48.2"
+  }
+}

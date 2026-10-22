@@ -30,6 +30,24 @@ that belong to their own household. The Supabase *publishable key* in `config.js
 6. Optional but recommended: once you've both signed up, go to **Authentication → Sign In / Providers**
    and turn off **Allow new users to sign up**.
 
+## Tests
+
+```sh
+npm install        # once; only installs playwright-core (uses your installed Chrome)
+npm test           # unit + UI tests
+npm run test:unit  # just the logic in lib.js (dates, staleness, scoring, calendar)
+npm run test:ui    # clicks through the real page in headless Chrome at phone sizes
+```
+
+- `tests/unit/` tests the pure helpers in `lib.js` with Node's built-in test runner.
+- `tests/ui/` drives `index.html` with Playwright against `tests/ui/fake-supabase.js`, an
+  in-memory stand-in that mirrors the database rules, so no real data is touched.
+- `tests/db/db_test.sql` checks row-level security and the one-regular-everywhere rules on the
+  real database. Paste it into the Supabase SQL Editor and run it: it rolls itself back and
+  reports PASS/FAIL per check in the error message.
+
+GitHub Actions runs the unit and UI tests on every push.
+
 ## Local dev
 
 ```sh
